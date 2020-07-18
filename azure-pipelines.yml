@@ -19,18 +19,17 @@ steps:
     ls
     npm install
   displayName: 'npm install'
-- task: ArchiveFiles@2
+- task: ArchiveFiles@1
+  displayName: 'Archive files '
   inputs:
-    rootFolderOrFile: '$(Build.BinariesDirectory)'
-    includeRootFolder: true
-    archiveType: 'zip'
-    archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
-    replaceExistingArchive: true
+    rootFolder: '$(System.DefaultWorkingDirectory)'
+    includeRootFolder: false
 - task: CopyFiles@2
+  displayName: 'Copy File to: $(TargetFolder)'
   inputs:
-    SourceFolder: '$(System.DefaultWorkingDirectory)'
+    SourceFolder: '$(Build.ArtifactStagingDirectory)'
     Contents: '$(Build.BuildId).zip'
-    TargetFolder: '$(Build.ArtifactStagingDirectory)'
+    TargetFolder: '$(Build.ArtifactStagingDirectory)\ArtifactsToBePublished'
 
 - task: PublishBuildArtifacts@1
   inputs:
