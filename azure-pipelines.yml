@@ -11,9 +11,15 @@ pool:
 
 steps:
 - task: NodeTool@0
+  displayName: 'Use Node version'
   inputs:
-    versionSpec: '10.x'
-  displayName: 'Install Node.js'
+    versionSpec: 12.x
+- task: Npm@0
+  displayName: 'npm install'
+  inputs:
+    cwd: '$(System.DefaultWorkingDirectory)'
+    arguments: '--force'
+
 
 - script: |
     ls
