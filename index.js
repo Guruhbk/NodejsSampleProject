@@ -3,4 +3,4 @@ const app = express();
 app.get('/',(req, res)=>{
 res.send("Hi Stranger");
 })
-app.listen(3002)
+app.listen(80)
