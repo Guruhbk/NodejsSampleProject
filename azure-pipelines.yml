@@ -24,5 +24,4 @@ steps:
 - script: |
     ls
     npm install
-    npm start
   displayName: 'npm install'
