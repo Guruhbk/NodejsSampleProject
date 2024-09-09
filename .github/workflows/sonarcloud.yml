@@ -1,0 +1,37 @@
+name: SonarCloud Scan for Node.js
+
+on:
+  pull_request:
+  push:
+    branches:
+      - master  # or your default branch
+
+jobs:
+  sonarcloud:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16'  # Adjust this to match your Node.js version
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run SonarCloud Scan
+        uses: sonarsource/sonarcloud-github-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # GitHub token automatically provided by GitHub Actions
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}     # SonarCloud token added as a secret
+        with:
+          args: >
+            -Dsonar.projectKey=Guruhbk_NodejsSampleProject
+            -Dsonar.organization=guruhbk
+            -Dsonar.sources=.
+            -Dsonar.host.url=https://sonarcloud.io
+            -Dsonar.javascript.lcov.reportPaths=coverage/lcov.info
+
